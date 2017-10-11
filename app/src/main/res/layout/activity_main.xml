@@ -34,7 +34,7 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorPrimary"
         android:foregroundTint="@color/colorAccent"
         android:hapticFeedbackEnabled="false"
         app:itemBackground="@drawable/nav_item_drawable"
