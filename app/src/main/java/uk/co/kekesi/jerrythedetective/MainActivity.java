@@ -17,17 +17,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import uk.co.kekesi.jerrythedetective.Fragment.CallsFragment;
-import uk.co.kekesi.jerrythedetective.Fragment.ChatFragment;
-import uk.co.kekesi.jerrythedetective.Fragment.ContactsFragment;
+import uk.co.kekesi.jerrythedetective.Fragment.InventoryFragment;
+import uk.co.kekesi.jerrythedetective.Fragment.GameplayFragment;
+import uk.co.kekesi.jerrythedetective.Fragment.MapFragment;
 
 import static android.R.attr.textColor;
-import static uk.co.kekesi.jerrythedetective.R.id.imageView2;
-import static uk.co.kekesi.jerrythedetective.R.id.inv_layout;
 
 public class MainActivity extends AppCompatActivity {
-
-    BottomNavigationView bottomNavigationView;
 
     //This is our viewPager
     private ViewPager viewPager;
@@ -35,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Fragments
 
-    ChatFragment chatFragment;
-    CallsFragment callsFragment;
-    ContactsFragment contactsFragment;
+    GameplayFragment gameplayFragment;
+    InventoryFragment inventoryFragment;
+    MapFragment mapFragment;
     MenuItem prevMenuItem;
 
     private TextView mTextMessage;
@@ -72,9 +68,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.nav_gameplay);
+        viewPager.setCurrentItem(1);
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -89,11 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                    navigation.getMenu().getItem(0).setChecked(false);
                 }
-                Log.d("page", "onPageSelected: "+position);
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+                navigation.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = navigation.getMenu().getItem(position);
 
             }
 
@@ -103,6 +100,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setupViewPager(viewPager);
+        viewPager.setCurrentItem(1);
+
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        inventoryFragment=new InventoryFragment();
+        gameplayFragment=new GameplayFragment();
+        mapFragment=new MapFragment();
+        adapter.addFragment(inventoryFragment);
+        adapter.addFragment(gameplayFragment);
+        adapter.addFragment(mapFragment);
+        viewPager.setAdapter(adapter);
     }
 
 
