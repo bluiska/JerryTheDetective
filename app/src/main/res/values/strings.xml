@@ -3,4 +3,7 @@
     <string name="title_home">Inventory</string>
     <string name="title_dashboard">Gameplay</string>
     <string name="title_notifications">Map</string>
+    <string name="tab3">Map</string>
+    <string name="tab2">Gameplay</string>
+    <string name="tab1">Inventory</string>
 </resources>
